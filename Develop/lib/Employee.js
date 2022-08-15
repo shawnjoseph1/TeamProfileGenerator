@@ -1,21 +1,24 @@
-class Employee {
-    constructor(name, id, email) {
-        this.name = name;
-        this.id = id;
-        this.email = email;
+class Employee { // Export Employee class to be used in other files
+    constructor(name, id, email) { // Constructor for Employee class
+        this.name = name; // Set name property
+        this.id = id; // Set id property
+        this.email = email; // Set email property
     }
-    getName() {
-        return this.name;
+    getName() { // Get name property
+        return this.name; // Return name property
     }
-    getId() {
-        return this.id;
+
+    getId() { // Get id property
+        return this.id; // Return id property
     }
-    getEmail() {
-        return this.email;
+
+    getEmail() {  // Get email property
+        return this.email; // Return email property
     }
-    getRole() {
-        return "Employee";
+
+    getRole() { // Get role property
+        return "Employee"; // Return Employee
     }
 }
 
-module.exports = Employee;
+module.exports = Employee; 

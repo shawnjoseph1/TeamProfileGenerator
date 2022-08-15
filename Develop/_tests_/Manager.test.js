@@ -1,0 +1,1 @@
+const Manager = require("../lib/Manager"); // Import Manager class

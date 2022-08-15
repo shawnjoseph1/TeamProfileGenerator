@@ -4,3 +4,7 @@ const generateHTML = require('./utils/generateHTML.js');
 const inquirer = require('inquirer'); 
 // file system module
 const fs = require('fs'); 
+
+// create a team profile generator 
+const teamProfile = [];
+    
