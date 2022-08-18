@@ -19,32 +19,32 @@ const addManager = () => {
             type: 'input', // type of input
             name: 'name', // name of input
             message: 'What is your name?', // message to display
-            validate: (value)=>{ if(value){return true} else {return 'Please enter your name'}}, // validation function
+ 
         },
         {
             type: 'input', 
             name: 'id', 
             message: 'What is your id?',
-            validate: (value)=>{ if(value){return true} else {return 'Please enter your ID'}},
+        
         },
         {
             type: 'input',
             name: 'email',
             message: 'What is your email?',
-            validate: (value)=>{ if(value){return true} else {return 'Please enter your email'}},
+     
         },
         {
             type: 'input',
             name: 'officeNumber',
             message: 'What is your office number?',
-            validate: (value)=>{ if(value){return true} else {return 'Please enter your office number'}},
-        }
+        
+        },
     ])
 
 
  .then(managerInput => { // create a team profile
     const {name, id, email, officeNumber} = managerInput; // destructuring the manager input
-    const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber); // create a new manager object
+    const manager = new Manager(name, id, email, officeNumber); // create a new manager object
 
     teamProfile.push(manager); // push the new manager object to the team profile array
     console.log(manager)
@@ -57,109 +57,87 @@ const addEmployee = () => {
         {
             type: 'list', 
             name: 'role', 
-            message: 'What is your role?',
-            choices: ['Engineer', 'Intern', 'I don\'t want to add anyone else'], // choices for the role   
-            validate: (value)=>{ if(value){return true} else {return 'Please enter your role'}}, 
-        }
-
-    ]).then(answers => { // then function to create a team profile
-        if(answers.role === 'Engineer'){ // if the role is engineer
-            addEngineer(); // prompt the engineer for information
-        } else if(answers.role === 'Intern'){ // if the role is intern
-            addIntern(); // prompt the intern for information
-        } else { // if the role is neither engineer nor intern 
-            generateHTML(teamProfile); // generate the html file
-        }
-    }).catch(err => { // catch any errors
-        console.log(err); // log the error
-    }
-    );
-}
-
- // prompt the engineer for information
-const addEngineer = () => {  
-    return inquirer.prompt([
-        {
-            type: 'input',  // type of input
-            name: 'name', // name of input
-            message: 'What is your name?', // message to display
-            validate: (value)=>{ if(value){return true} else {return 'Please enter your name'}}, // validation function
+            message: 'What is your employees role?',
+            choices: ['Engineer', 'Intern'], // choices for the role   
         },
         {
-            type: 'input',
-            name: 'id',
-            message: 'What is your id?',
-            validate: (value)=>{ if(value){return true} else {return 'Please enter your ID'}},
+            type: 'input', // type of input
+            name: 'name', // name of input
+            message: 'What is the name of your employee?', // message to display
+       
+        },
+        {
+            type: 'input', 
+            name: 'id', 
+            message: 'Enter your employees id?',
+         
         },
         {
             type: 'input',
             name: 'email',
-            message: 'What is your email?',
-            validate: (value)=>{ if(value){return true} else {return 'Please enter your email'}},
+            message: 'Enter your employees email?',
+          
+        },
+        {
+            type: 'input',
+            name: 'officeNumber',
+            message: 'Enter your employees office number?',
+          
         },
         {
             type: 'input',
             name: 'github',
-            message: 'What is your github username?',
-            validate: (value)=>{ if(value){return true} else {return 'Please enter your github username'}},
+            message: 'Enter your employees github username?',        
+        },
+        {
+            type: 'confirm',
+            name: 'confirmAddEmployee',
+            message: 'Would you like to add another employee?',
+            default: false
+           
         }
-    ]).then(answers => { // then function to create a team profile 
 
-        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github); // create a new engineer object
-        teamMembers.push(engineer); // push the new engineer object to the team profile array
-        promptEmployee();
-    })
-}
+    ]).then(employeeData => { 
 
-const addIntern = () => { // prompt the intern for information
-    return inquirer.prompt([
-        {
-            type: 'input', // type of input
-            name: 'name', // name of input
-            message: 'What is your name?', // message to display
-            validate: (value)=>{ if(value){return true} else {return 'Please enter your name'}}, // validation function
-        },
-        {
-            type: 'input',
-            name: 'id',
-            message: 'What is your id?',
-            validate: (value)=>{ if(value){return true} else {return 'Please enter your ID'}},
-        },
-        {
-            type: 'input',
-            name: 'email',
-            message: 'What is your email?',
-            validate: (value)=>{ if(value){return true} else {return 'Please enter your email'}},
-        },
-        {
-            type: 'input',
-            name: 'school',
-            message: 'What is your school?',
-            validate: (value)=>{ if(value){return true} else {return 'Please enter your school'}},
+        let  {name, id, email, role, github, confirmAddEmployee} = employeeData; 
+
+        let employee;
+
+        if(role === "Engineer"){ // if the role is engineer
+            employee = new Engineer(name, id, email, github); // create a new engineer object
+
+        } else if(role === "Intern"){ // if the role is intern
+            employee = new Intern (name, id, email, github); // create a new intern object
+
+        } 
+
+        teamProfile.push(employee); // push the new employee object to the team profile array
+
+        if (confirmAddEmployee) { // if the user wants to add another employee
+        return addEmployee(teamProfile); 
+        } else {
+            return teamProfile; 
         }
-        
-    ]).then(answers => { // then function to create a team profile
-        const intern = new Intern(answers.name, answers.id, answers.email, answers.school); // create a new intern object
-        teamMembers.push(intern); // push the new intern object to the team profile array
-        promptEmployee();
     })
-}
 
+};
+
+ 
 const writeFile = date => {
     fs.writeFile('./dist/index.html', date, err => { // write the file
         if(err){ // if there is an error
             console.log(err); // log the error
+            return;
         } else { // if there is no error
-            console.log('Successfully wrote to file'); // log the success
+            console.log('Successfully created your team'); // log the success
         }
-    }
-    );
-}
+    })
+};
 
 addManager()
   .then(addEmployee)
-  .then(teamArray => {
-    return generateHTML(teamArray);
+  .then(teamProfile => {
+    return generateHTML(teamProfile);
   })
   .then(pageHTML => {
     return writeFile(pageHTML);
