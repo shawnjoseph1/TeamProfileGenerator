@@ -134,15 +134,20 @@ const writeFile = date => {
     })
 };
 
+    
+// create a switch case for addManager and addEmployee to call the functions 
+
+
 addManager()
-  .then(addEmployee)
-  .then(teamProfile => {
-    return generateHTML(teamProfile);
-  })
-  .then(pageHTML => {
-    return writeFile(pageHTML);
-  })
-  .catch(err => {
- console.log(err);
-  });
+    .then(addEmployee)
+    .then(teamProfile => {
+        const html = generateHTML(teamProfile); // create the html file
+        writeFile(html); // write the html file
+    }).catch(err => {
+        console.log(err); // log the error
+    }
+)
+
+
+
 

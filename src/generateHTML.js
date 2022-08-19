@@ -44,7 +44,7 @@ const generateIntern = function (intern) {
         <div class="card h-100">
             <div class="card-header">
                 <h3>${intern.name}</h3>
-                <h4>Intern</h4><i class="material-icons">assignment_ind</i
+                <h4>Intern</h4><i class="material-icons"></i
             </div>
             <div class="card-body">
                 <p class="id">ID: ${intern.id}</p>
@@ -110,7 +110,7 @@ const generateTeamProfile = function (employeeCards) {  // generate team profile
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/4d502ce4f5.js" crossorigin="anonymous"></script>
-    <title>My Team</title>
+    <title>My Team Generator</title>
     </head>
     <body>
     <!-- Top of page title -->
